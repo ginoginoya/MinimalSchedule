@@ -4,8 +4,8 @@ Backup02/
 Backup03/
 
 # Local configuration files
-@Resources/DataWeb.inc
 DataWeb.inc
+ViewWeb2網址.txt
 
 # OS generated files
 .DS_Store
