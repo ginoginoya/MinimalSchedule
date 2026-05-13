@@ -7,6 +7,7 @@ Backup03/
 DataWeb.inc
 ViewWeb2網址.txt
 
-# OS generated files
-.DS_Store
-Thumbs.db
+# Portfolio files
+portfolio_minimal_schedule.html
+portfolio_minimal_schedule/
+implementation_plan.md
