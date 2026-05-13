@@ -1,0 +1,422 @@
+:root {
+    /* 預設：午夜橘 */
+    --bg-r: 15;
+    --bg-g: 15;
+    --bg-b: 15;
+    --accent: #ffae3c;
+    --text-main: #ebe6d2;
+    --text-done: #707070;
+    /* 灰調，減少注意力 */
+
+    --bg-color: rgba(var(--bg-r), var(--bg-g), var(--bg-b), 0.95);
+    --item-bg: rgba(255, 255, 255, 0.05);
+    --card-border: rgba(255, 255, 255, 0.1);
+    --success: #4caf50;
+    --font-family: 'Segoe UI', 'Microsoft JhengHei UI', sans-serif;
+}
+
+[data-theme="ocean"] {
+    --bg-r: 10;
+    --bg-g: 25;
+    --bg-b: 40;
+    --accent: #00d4ff;
+    --text-main: #e0f7fa;
+    --text-done: #5b7a8a;
+}
+
+[data-theme="forest"] {
+    --bg-r: 10;
+    --bg-g: 35;
+    --bg-b: 20;
+    --accent: #4caf50;
+    --text-main: #e8f5e9;
+    --text-done: #5b8a5b;
+}
+
+[data-theme="violet"] {
+    --bg-r: 25;
+    --bg-g: 10;
+    --bg-b: 40;
+    --accent: #bb86fc;
+    --text-main: #f3e5f5;
+    --text-done: #7a5b8a;
+}
+
+[data-theme="sunset"] {
+    --bg-r: 45;
+    --bg-g: 15;
+    --bg-b: 15;
+    --accent: #ff5252;
+    --text-main: #ffebee;
+    --text-done: #8a5b5b;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family);
+    color: var(--text-main);
+    background: transparent;
+    overflow: hidden;
+    user-select: none;
+    width: 100vw;
+    height: 100vh;
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+    padding: 10px 35px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: var(--bg-color);
+    /* 使用背景色 */
+    border-radius: 12px;
+    app-region: drag;
+    /* 讓背景可以被拖動 */
+    transition: opacity 0.05s ease-in-out;
+}
+
+.container.transitioning {
+    opacity: 0 !important;
+}
+
+.container.maximized {
+    app-region: no-drag;
+    border-radius: 0;
+    /* 最大化時通常不保留圓角 */
+}
+
+.container.folded {
+    width: 80px;
+    height: 45px;
+    padding: 0 8px;
+    border-radius: 8px;
+    justify-content: center;
+    /* 內部內容居中 */
+}
+
+.container.folded header {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 5px;
+}
+
+.container.folded .window-controls {
+    gap: 5px;
+}
+
+.container.folded main,
+.container.folded footer {
+    display: none !important;
+}
+
+/* 確保摺疊時只顯示特定按鈕，並防止被隱藏 */
+.container.folded #btn-pin,
+.container.folded #btn-fold {
+    display: flex !important;
+}
+
+.container.folded #btn-maximize,
+.container.folded #btn-close {
+    display: none !important;
+}
+
+.container.folded .control-btn {
+    width: 15px;
+    height: 15px;
+}
+
+.control-btn svg {
+    width: 15px;
+    height: 15px;
+    fill: currentColor;
+}
+
+.control-btn.active {
+    opacity: 1;
+    color: var(--accent);
+}
+
+.window-controls {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-shrink: 0;
+    app-region: no-drag;
+    position: absolute;
+    right: 0;
+}
+
+header {
+    margin-bottom: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding: 0;
+}
+
+.container.folded header {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0px;
+    transform: translateY(-6px);
+}
+
+.container.folded .window-controls {
+    position: static;
+    gap: 0px;
+}
+
+.container.folded h1 {
+    font-size: 20px;
+    letter-spacing: 2px;
+    width: auto;
+    max-width: 60%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    flex: none;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+}
+
+h1 {
+    font-size: 2.0rem;
+    font-weight: 900;
+    letter-spacing: 8px;
+    color: var(--text-color);
+    margin: 0;
+    text-align: center;
+}
+
+.container.maximized header {
+    cursor: grab;
+}
+
+.container.maximized header:active {
+    cursor: grabbing;
+}
+
+.control-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-main);
+    font-size: 1.2rem;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s;
+    opacity: 0.6;
+}
+
+.control-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    opacity: 1;
+}
+
+.control-btn.close:hover {
+    background: #e81123;
+    color: white;
+}
+
+.control-btn:active {
+    transform: scale(0.9);
+}
+
+.grid {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+    width: 100%;
+    max-width: 860px;
+}
+
+.column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    /* 縮小行距 */
+}
+
+.task-item {
+    display: flex;
+    align-items: center;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 6px;
+    padding: 5px 12px;
+    /* 縮小垂直內邊距 */
+    backdrop-filter: blur(5px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.task-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateX(5px);
+}
+
+.task-time {
+    font-size: 1.1rem;
+    font-weight: 600;
+    width: 45px;
+    opacity: 0.8;
+}
+
+.task-content {
+    flex: 1;
+    margin-left: 10px;
+    font-size: 1.1rem;
+    background: transparent;
+    border: none;
+    color: inherit;
+    outline: none;
+    cursor: text;
+    app-region: no-drag;
+    /* 防止輸入框觸發拖動 */
+}
+
+.checkbox-container {
+    width: 22px;
+    height: 22px;
+    border: 2px solid var(--card-border);
+    border-radius: 4px;
+    margin-left: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    app-region: no-drag;
+    /* 防止勾選框觸發拖動 */
+}
+
+.checkbox-container:hover {
+    border-color: var(--accent);
+}
+
+
+
+.task-item.done {
+    background: rgba(255, 255, 255, 0.03);
+    /* 極淡的背景 */
+    border-color: rgba(255, 255, 255, 0.05);
+    color: var(--text-done);
+}
+
+.task-item.done .checkbox-container {
+    background: transparent;
+    /* 移除鮮艷背景 */
+    border-color: var(--text-done);
+}
+
+.task-item.done .checkbox-container::after {
+    content: '✔';
+    color: var(--text-done);
+    /* 使用調淡後的顏色 */
+    font-size: 14px;
+}
+
+.task-item.done .task-content {
+    opacity: 0.6;
+}
+
+/* 隱藏滾動條 */
+::-webkit-scrollbar {
+    display: none;
+}
+
+footer {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--card-border);
+    padding-top: 20px;
+}
+
+.test-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    color: var(--text-main);
+    opacity: 0.8;
+}
+
+#test-alpha {
+    background: var(--item-bg);
+    border: 1px solid var(--card-border);
+    color: var(--text-main);
+    padding: 4px 8px;
+    border-radius: 4px;
+    width: 65px;
+    outline: none;
+    app-region: no-drag;
+}
+
+.btn-group {
+    display: flex;
+    gap: 15px;
+}
+
+.btn {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--card-border);
+    color: var(--text-main);
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    app-region: no-drag;
+    /* 防止按鈕觸發拖動 */
+}
+
+.btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: var(--accent);
+}
+
+.btn:active {
+    transform: translateY(2px);
+}
+
+#theme-select {
+    background: var(--item-bg);
+    border: 1px solid var(--card-border);
+    color: var(--text-main);
+    padding: 4px 8px;
+    border-radius: 4px;
+    outline: none;
+    cursor: pointer;
+    app-region: no-drag;
+}
+
+#theme-select option {
+    background: #222;
+    color: #fff;
+}

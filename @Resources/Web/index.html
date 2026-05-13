@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minimal Schedule Web</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="app" class="container">
+
+        <header>
+            <h1 id="title">SCHEDULE</h1>
+            <div class="window-controls">
+                <button id="btn-pin" class="control-btn" title="釘選置頂">
+                    <svg class="icon-unpinned" viewBox="0 0 24 24" style="width:18px;height:18px;"><path d="M16 9V4.5L17 4V3H7V4L8 4.5V9L6 12V14H11V20L12 21L13 20V14H18V12L16 9M10 5H14V9L15 10.5V12H9V10.5L10 9V5Z" fill="currentColor"/></svg>
+                    <svg class="icon-pinned" viewBox="0 0 24 24" style="width:18px;height:18px;display:none;"><path d="M16,12V4H17V2H7V4H8V12L6,14V16H11V22L12,23L13,22V16H18V14L16,12Z" fill="currentColor"/></svg>
+                </button>
+                <button id="btn-fold" class="control-btn" title="摺疊">
+                    <svg viewBox="0 0 24 24" style="width:18px;height:18px;"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z" fill="currentColor"/></svg>
+                </button>
+                <button id="btn-maximize" class="control-btn" title="最大化">
+                    <svg viewBox="0 0 24 24" style="width:18px;height:18px;"><path d="M4,4H20V20H4V4M6,8V18H18V8H6Z" fill="currentColor"/></svg>
+                </button>
+                <button id="btn-close" class="control-btn close" title="關閉">
+                    <svg viewBox="0 0 24 24" style="width:18px;height:18px;"><path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" fill="currentColor"/></svg>
+                </button>
+            </div>
+        </header>
+        <main id="schedule-grid" class="grid">
+            <div id="col-left" class="column"></div>
+            <div id="col-right" class="column"></div>
+        </main>
+        <footer>
+            <div class="footer-content">
+                <div class="test-controls">
+                    <span>風格:</span>
+                    <select id="theme-select">
+                        <option value="default">午夜橘 (預設)</option>
+                        <option value="ocean">深海藍</option>
+                        <option value="forest">翡翠綠</option>
+                        <option value="violet">紫羅蘭</option>
+                        <option value="sunset">日落紅</option>
+                    </select>
+                    <span style="margin-left: 10px;">透明度:</span>
+                    <input type="number" id="test-alpha" value="95" min="10" max="100" step="5">
+                    <span>%</span>
+                </div>
+                <div class="btn-group">
+
+                    <button id="btn-clear-text" class="btn">清除文字</button>
+                    <button id="btn-clear-status" class="btn">清除標記</button>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>

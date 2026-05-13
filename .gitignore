@@ -1,0 +1,12 @@
+# Rainmeter Skin Backups
+Backup01/
+Backup02/
+Backup03/
+
+# Local configuration files
+@Resources/DataWeb.inc
+DataWeb.inc
+
+# OS generated files
+.DS_Store
+Thumbs.db
